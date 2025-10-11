@@ -1,0 +1,83 @@
+'use client'
+import { Card, CardContent, CardDescription } from '@/components/ui/card'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { cn } from '@/lib/utils'
+import { User } from 'lucide-react'
+import React from 'react'
+import { FieldValues, UseFormRegister } from 'react-hook-form'
+
+type Props = {
+  value: string
+  title: string
+  text: string
+  register: UseFormRegister<FieldValues>
+  userType: 'owner' | 'student'
+  setUserType: React.Dispatch<React.SetStateAction<'owner' | 'student'>>
+}
+
+const UserTypeCard = ({
+  register,
+  setUserType,
+  text,
+  title,
+  userType,
+  value,
+}: Props) => {
+  const isActive = userType === value
+
+  return (
+    <Label htmlFor={value}>
+      <Card
+        className={cn(
+          'w-full cursor-pointer transition-all duration-300',
+          isActive ? 'shadow-soft-md border-transparent' : 'border-gray-200'
+        )}
+      >
+        <CardContent className="flex justify-between p-2">
+          <div className="flex items-center gap-3">
+            <Card
+              className={cn(
+                'flex justify-center items-center p-3 rounded-lg transition-all duration-300',
+                isActive
+                  ? 'bg-gradient-to-tl from-blue-600 to-cyan-400 shadow-soft-md'
+                  : 'border border-gray-200'
+              )}
+            >
+              <User
+                size={10}
+                className={cn(isActive ? 'text-white' : 'text-gray-400')}
+              />
+            </Card>
+            <div className="">
+              <CardDescription className="text-iridium">{title}</CardDescription>
+              <CardDescription className="text-gray-400">{text}</CardDescription>
+            </div>
+          </div>
+          <div>
+            <div
+              className={cn(
+                'w-4 h-4 rounded-full border-2 flex items-center justify-center',
+                isActive
+                  ? 'bg-gradient-to-tl from-blue-600 to-cyan-400 border-transparent'
+                  : 'bg-transparent border-gray-400'
+              )}
+            >
+              <Input
+                {...register('type', {
+                  onChange: (event) => setUserType(event.target.value),
+                })}
+                value={value}
+                id={value}
+                className="hidden"
+                type="radio"
+              />
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+    </Label>
+  )
+}
+
+export default UserTypeCard
