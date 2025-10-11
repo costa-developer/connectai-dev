@@ -1,13 +1,18 @@
-"use client";
+'use client'
 
 import { useState } from "react";
 import Link from "next/link";
 import Logo from "../logo/logo";
 import { ChevronDown } from "lucide-react";
+import { useUser } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
 
 export default function NavBar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+
+  const { isLoaded, isSignedIn } = useUser();
+  const router = useRouter();
 
   const toggleDropdown = (menu: string) => {
     setActiveDropdown(activeDropdown === menu ? null : menu);
@@ -16,6 +21,15 @@ export default function NavBar() {
   const closeMenu = () => {
     setMenuOpen(false);
     setActiveDropdown(null);
+  };
+
+  const handleAuthRedirect = (path: string) => {
+    if (isLoaded && isSignedIn) {
+      router.push("/dashboard");
+    } else {
+      router.push(path);
+    }
+    closeMenu();
   };
 
   const menuItems = [
@@ -53,7 +67,6 @@ export default function NavBar() {
     <header className="fixed top-2 z-30 w-full md:top-6">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <div className="relative flex h-14 items-center justify-between gap-3 rounded-2xl bg-white/90 px-3 shadow-lg shadow-black/5 backdrop-blur-md">
-          {/* Logo */}
           <div className="flex items-center flex-1">
             <Logo />
             <Link
@@ -63,8 +76,6 @@ export default function NavBar() {
               Connect AI
             </Link>
           </div>
-
-          {/* Mobile Hamburger */}
           <button
             className="lg:hidden flex flex-col items-center justify-center px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-100 transition"
             onClick={() => setMenuOpen(!menuOpen)}
@@ -86,8 +97,6 @@ export default function NavBar() {
               }`}
             ></span>
           </button>
-
-          {/* Menu */}
           <nav
             className={`${
               menuOpen
@@ -125,8 +134,6 @@ export default function NavBar() {
                   </ul>
                 </li>
               ))}
-
-              {/* Single Links */}
               <li>
                 <Link
                   href="/pricing"
@@ -146,22 +153,20 @@ export default function NavBar() {
                 </Link>
               </li>
               <li>
-                <Link
-                  href="/auth/sign-up"
-                  onClick={closeMenu}
+                <button
+                  onClick={() => handleAuthRedirect("/auth/sign-up")}
                   className="block px-4 py-2 text-sm text-slate-700 hover:text-slate-900"
                 >
                   Sign Up
-                </Link>
+                </button>
               </li>
               <li className="pb-4 lg:pb-0">
-                <Link
-                  href="/auth/sign-in"
-                  onClick={closeMenu}
+                <button
+                  onClick={() => handleAuthRedirect("/auth/sign-in")}
                   className="mt-2 lg:mt-0 inline-block px-4 py-2 text-xs font-bold text-white bg-gray-800 rounded-3xl hover:bg-gray-900"
                 >
                   Sign In
-                </Link>
+                </button>
               </li>
             </ul>
           </nav>
