@@ -18,4 +18,5 @@ export const INTEGRATION_LIST_ITEMS: IntegrationsListItemProps[] = [
     modalDescription:
       'The world’s most successful platforms and marketplaces including Shopify and DoorDash, use Stripe Connect.',
   },
+  
 ]

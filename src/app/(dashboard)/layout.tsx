@@ -19,7 +19,8 @@ type Props = {
 
 async function fetchUserDomains(userId: string): Promise<DomainType[]> {
   try {
-    const res = await fetch(`/api/domains?userId=${userId}`)
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || ''
+    const res = await fetch(`${baseUrl}/api/domains?userId=${userId}`)
     if (!res.ok) {
       console.error('Failed to fetch domains:', res.statusText)
       return []
