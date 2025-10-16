@@ -13,8 +13,13 @@ type Props = {
     | null
     | undefined
 }
+type SideBarProps = {
+  domains: { id: string; name: string; icon: string | null }[] | null | undefined
+  isOpen?: boolean 
+  onClose?: () => void
+}
 
-const SideBar = ({ domains }: Props) => {
+const SideBar = ({ domains, isOpen = false, onClose }: SideBarProps) => {
   return (
     <div className="bg-gray-50 dark:bg-neutral-950 h-full w-[240px] fixed md:relative hidden md:flex">
       <MaxMenu

@@ -9,6 +9,7 @@ import StarIcon from '@/icons/star-icon'
 import TimerIcon from '@/icons/timer-icon'
 import { Calendar, MessageCircle, Home, Mail, HelpCircle, Settings, Star, Clock } from 'lucide-react'
 
+
 type SIDE_BAR_MENU_PROPS = {
   label: string
   icon: JSX.Element
@@ -18,36 +19,35 @@ type SIDE_BAR_MENU_PROPS = {
 export const SIDE_BAR_MENU: SIDE_BAR_MENU_PROPS[] = [
   {
     label: 'Dashboard',
-    icon: <Home size={20} className='text-gray-white' />,
+    icon: <DashboardIcon />,
     path: 'dashboard',
   },
   {
     label: 'Conversations',
-    icon: <MessageCircle size={20} />,
+    icon: <ChatIcon />,
     path: 'conversation',
   },
   {
     label: 'Integrations',
-    icon: <Settings size={20} />,
+    icon: <IntegrationsIcon />,
     path: 'integration',
   },
   {
     label: 'Settings',
-    icon: <Settings size={20} />,
+    icon: <SettingsIcon />,
     path: 'settings',
   },
   {
     label: 'Appointments',
-    icon: <Calendar size={20} />,
+    icon: <CalIcon />,
     path: 'appointment',
   },
   {
     label: 'Email Marketing',
-    icon: <Mail size={20} />,
+    icon: <EmailIcon />,
     path: 'email-marketing',
   },
 ]
-
 
 type TABS_MENU_PROPS = {
   label: string

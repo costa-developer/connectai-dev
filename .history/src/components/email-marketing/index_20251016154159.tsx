@@ -36,7 +36,7 @@ type Props = {
   } | null
 }
 
-const EmailMarketing = ({ campaign =[], domains, subscription }: Props) => {
+const EmailMarketing = ({ campaign, domains, subscription }: Props) => {
   const {
     onSelectedEmails,
     isSelected,
@@ -55,8 +55,10 @@ const EmailMarketing = ({ campaign =[], domains, subscription }: Props) => {
     emailErrors,
     onCreateEmailTemplate,
     setValue,
+    campaignId,
+    setValue,
   } = useEmailMarketing()
-  const selectedCampaign = campaign?.find(camp => camp.id === campaignId)
+  const selectedCampaign = campaign.find(camp => camp.id === campaignId)
 
   return (
     <div className="w-full h-full flex overflow-hidden bg-white mt-8 rounded-2xl border-0 border-solid">

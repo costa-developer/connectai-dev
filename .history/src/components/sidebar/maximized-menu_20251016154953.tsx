@@ -89,11 +89,12 @@ const MaxMenu = ({ current, domains, onSignOut }: Props) => {
         {/* Options */}
         <div className="flex flex-col mt-4">
           <p className="text-xs text-gray-500 mb-3">OPTIONS</p>
+          {/* Note: Profile icon should use `currentColor` internally to pick up the gradient */}
           <MenuItem
             size="max"
             label="Profile"
             path="profile"
-            icon={<User className="text-blue-500" />}
+            icon={<User />}
             current={current}
           />
           <MenuItem

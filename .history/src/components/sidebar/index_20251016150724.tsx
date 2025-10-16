@@ -13,6 +13,11 @@ type Props = {
     | null
     | undefined
 }
+type SideBarProps = {
+  domains: { id: string; name: string; icon: string | null }[] | null | undefined
+  isOpen?: boolean // mobile toggle
+  onClose?: () => void
+}
 
 const SideBar = ({ domains }: Props) => {
   return (

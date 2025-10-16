@@ -4,7 +4,6 @@ import Image from 'next/image'
 import React from 'react'
 import DomainMenu from './domain-menu'
 import MenuItem from './menu-item'
-import { Diamond } from 'lucide-react'
 
 type Props = {
   current: string
@@ -45,6 +44,7 @@ const MaxMenu = ({ current, domains, onSignOut }: Props) => {
       {/* Menu items */}
       <div className="flex flex-col justify-between h-full my-4 mx-auto">
         <div className="flex flex-col">
+          <p className="text-xs text-gray-500 mb-3">MENU</p>
           {SIDE_BAR_MENU.map((menu, key) => (
             <MenuItem
               key={key}
@@ -56,7 +56,7 @@ const MaxMenu = ({ current, domains, onSignOut }: Props) => {
           <DomainMenu domains={domains} />
         </div>
 
-        <div className="mx-2 mt-4">
+        <div className="mx-4 mt-4">
           <div className="relative flex min-w-0 flex-col items-center break-words rounded-2xl border-0 bg-white shadow-none overflow-hidden">
             <div
               className="absolute inset-0 rounded-2xl bg-cover bg-center"
@@ -64,9 +64,9 @@ const MaxMenu = ({ current, domains, onSignOut }: Props) => {
             ></div>
 
             <div className="relative z-10 flex flex-col w-full p-4 text-left text-white">
-            <div className="flex items-center justify-center w-8 h-8 mb-4 rounded-lg bg-white shadow-soft-2xl">
-              <Diamond className="text-slate-600 to-slate-300 w-5 h-5" />
-            </div>
+              <div className="flex items-center justify-center w-8 h-8 mb-4 rounded-lg bg-white shadow-soft-2xl">
+                <i className="bg-gradient-to-tl from-slate-600 to-slate-300 bg-clip-text text-transparent text-lg opacity-80 ni ni-diamond"></i>
+              </div>
               <div className="transition-all duration-200 ease-nav-brand">
                 <h6 className="mb-0 text-white text-sm font-semibold">Need help?</h6>
                 <p className="mt-0 mb-4 text-xs font-semibold leading-tight text-white/80">

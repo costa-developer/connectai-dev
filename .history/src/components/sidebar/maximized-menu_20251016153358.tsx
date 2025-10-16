@@ -65,7 +65,7 @@ const MaxMenu = ({ current, domains, onSignOut }: Props) => {
 
             <div className="relative z-10 flex flex-col w-full p-4 text-left text-white">
             <div className="flex items-center justify-center w-8 h-8 mb-4 rounded-lg bg-white shadow-soft-2xl">
-              <Diamond className="text-slate-600 to-slate-300 w-5 h-5" />
+              <Diamond className="text-slate-600  to-slate-300 w-5 h-5" />
             </div>
               <div className="transition-all duration-200 ease-nav-brand">
                 <h6 className="mb-0 text-white text-sm font-semibold">Need help?</h6>

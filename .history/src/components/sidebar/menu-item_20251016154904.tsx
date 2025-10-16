@@ -16,11 +16,11 @@ const MenuItem = ({ size, path, icon, label, current, onSignOut }: Props) => {
   const baseIconClasses =
     'mr-2 flex h-8 w-8 items-center justify-center rounded-lg shadow-soft-2xl xl:p-2.5'
 
-  const iconBackgroundAndColor = isActive
+    const iconBackgroundAndColor = isActive
     ? 
-      'bg-gradient-to-tl from-blue-600 to-cyan-400 text-white'
+      'bg-white' // Icon wrapper background is white when active
     : 
-      'bg-white text-gray-700'
+      'bg-white text-gray-700' // Icon wrapper background is white when inactive (text color is gray-700)
 
   const IconCard = (
     <div className={cn(baseIconClasses, iconBackgroundAndColor)}>

@@ -10,9 +10,9 @@ import { SideSheet } from '../sheet'
 import Answers from './answers'
 
 type CustomerTableProps = {
-  domains?: {
-    customer?: { 
-      Domain?: { 
+  domains?: { // make optional
+    customer?: { // make optional
+      Domain?: { // optional
         name: string
       } | null
       id: string
@@ -26,7 +26,7 @@ type CustomerTableProps = {
 }
 
 export const CustomerTable = ({
-  domains = [], 
+  domains = [], // default empty array
   onSelect,
   select,
   onId,
@@ -39,7 +39,7 @@ export const CustomerTable = ({
   return (
     <DataTable headers={EMAIL_MARKETING_HEADER}>
       {domains.map((domain) =>
-        domain.customer?.map((c) => (
+        domain.customer?.map((c) => ( // optional chaining
           <TableRow key={c.id}>
             <TableCell>
               <Card

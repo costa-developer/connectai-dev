@@ -18,7 +18,7 @@ type SIDE_BAR_MENU_PROPS = {
 export const SIDE_BAR_MENU: SIDE_BAR_MENU_PROPS[] = [
   {
     label: 'Dashboard',
-    icon: <Home size={20} className='text-gray-white' />,
+    icon: <Home size={20} className='text-gray-500' />,
     path: 'dashboard',
   },
   {

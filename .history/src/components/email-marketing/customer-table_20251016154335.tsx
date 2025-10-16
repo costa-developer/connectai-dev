@@ -10,10 +10,10 @@ import { SideSheet } from '../sheet'
 import Answers from './answers'
 
 type CustomerTableProps = {
-  domains?: {
-    customer?: { 
-      Domain?: { 
-        name: string
+  domains: {
+    customer?: {
+      Domain?: {
+        name?: string
       } | null
       id: string
       email: string | null
@@ -26,27 +26,23 @@ type CustomerTableProps = {
 }
 
 export const CustomerTable = ({
-  domains = [], 
+  domains,
   onSelect,
   select,
   onId,
   id,
 }: CustomerTableProps) => {
-  if (!domains.length) {
-    return <div className="text-center text-sm text-slate-500">No customers found</div>
-  }
-
   return (
     <DataTable headers={EMAIL_MARKETING_HEADER}>
       {domains.map((domain) =>
-        domain.customer?.map((c) => (
+        domain.customer.map((c) => (
           <TableRow key={c.id}>
             <TableCell>
               <Card
-                onClick={() => c.email && onSelect(c.email)}
+                onClick={() => onSelect(c.email as string)}
                 className={cn(
                   'rounded-full w-5 h-5 border-4 cursor-pointer',
-                  c.email && select.includes(c.email) ? 'bg-orange' : 'bg-peach'
+                  select.includes(c.email as string) ? 'bg-orange' : 'bg-peach'
                 )}
               />
             </TableCell>

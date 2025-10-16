@@ -16,7 +16,7 @@ type Props = {
 
 const SideBar = ({ domains }: Props) => {
   return (
-    <div className="bg-gray-50 dark:bg-neutral-950 h-full w-[240px] fixed md:relative hidden md:flex">
+    <div className="">
       <MaxMenu
         domains={domains}
         current=""

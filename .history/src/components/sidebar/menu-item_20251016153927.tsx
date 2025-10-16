@@ -50,10 +50,11 @@ const MenuItem = ({ size, path, icon, label, current, onSignOut }: Props) => {
       return (
         <Link
           onClick={onSignOut}
+          // The link's active state classes remain the same as you had them
           className={cn(
             !current
               ? 'text-gray-500'
-              : isActive 
+              : isActive // Use the 'isActive' boolean here for clarity
               ? 'bg-white font-bold text-black'
               : 'text-gray-500',
             'rounded-lg py-2 my-1 flex items-center justify-center'

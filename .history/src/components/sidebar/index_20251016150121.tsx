@@ -1,4 +1,5 @@
 'use client'
+import useSideBar from '@/context/use-sidebar'
 import { cn } from '@/lib/utils'
 import React from 'react'
 import MaxMenu from './maximized-menu'
@@ -15,12 +16,14 @@ type Props = {
 }
 
 const SideBar = ({ domains }: Props) => {
+  const { page, onSignOut } = useSideBar()
+
   return (
-    <div className="bg-gray-50 dark:bg-neutral-950 h-full w-[240px] fixed md:relative hidden md:flex">
+    <div className="bg-gray-50 dark:bg-neutral-950 h-full w-[240px] fixed md:relative">
       <MaxMenu
         domains={domains}
-        current=""
-        onSignOut={() => {}}
+        current={page!}
+        onSignOut={onSignOut}
       />
     </div>
   )
