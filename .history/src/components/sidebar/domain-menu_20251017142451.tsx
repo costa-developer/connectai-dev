@@ -21,11 +21,9 @@ type Props = {
 const DomainMenu = ({ domains, min }: Props) => {
   return (
     <div className={cn('flex flex-col gap-3', min ? 'mt-6' : 'mt-3')}>
-      {!min && (
-        <div className="flex items-center gap-2 text-xs font-semibold text-gray-700">
-          <div className="flex items-center justify-center w-6 h-6 bg-gradient-to-tl from-blue-600 to-cyan-400 rounded-sm">
-            <Globe className="w-3 h-3 text-white" />
-          </div>
+            {!min && (
+        <div className="flex items-center gap-2 text-xs text-gray-500 font-semibold">
+          <Globe className="w-4 h-4" /> {/* icon to the left */}
           <span>DOMAINS</span>
         </div>
       )}

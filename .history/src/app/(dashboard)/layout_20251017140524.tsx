@@ -60,7 +60,9 @@ const OwnerLayout = ({ children }: Props) => {
     return (
       <div className="flex items-center justify-center h-screen w-full bg-gradient-to-br from-blue-100 via-white to-cyan-100">
         <div className="flex flex-col items-center">
+          {/* Spinner */}
           <div className="w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mb-4"></div>
+          {/* Loading message */}
           <p className="text-lg font-semibold text-blue-700 animate-pulse">
             Loading your dashboard...
           </p>

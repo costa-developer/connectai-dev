@@ -32,6 +32,7 @@ const BreadCrumb = (props: Props) => {
           </Loader>
         )}
       </div>
+      {/* Description removed */}
     </div>
   )
 }

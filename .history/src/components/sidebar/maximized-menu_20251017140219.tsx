@@ -22,6 +22,7 @@ type Props = {
 const MaxMenu = ({ current, domains, onSignOut }: Props) => {
   return (
     <div className="py-3 px-4 flex flex-col h-full w-[240px] ">
+      {/* Logo */}
       <div className="flex justify-between items-center my-4 mx-auto">
         <div className="flex items-center gap-2">
           <Image
@@ -35,6 +36,7 @@ const MaxMenu = ({ current, domains, onSignOut }: Props) => {
             CONNECT AI
           </span>
         </div>
+        {/* <Menu className="cursor-pointer animate-fade-in opacity-0 delay-300 fill-mode-forwards" /> */}
       </div>
 
       <hr className="h-px mt-0 bg-transparent bg-gradient-to-r from-transparent via-black/40 to-transparent mb-4" />
@@ -51,9 +53,7 @@ const MaxMenu = ({ current, domains, onSignOut }: Props) => {
               current={current}
             />
           ))}
-          <div className='ml-2'>
           <DomainMenu domains={domains} />
-          </div>
         </div>
 
         <div className="mx-2 mt-4">

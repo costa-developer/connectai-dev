@@ -2,7 +2,6 @@
 import { cn } from '@/lib/utils'
 import React from 'react'
 import MaxMenu from './maximized-menu'
-import useSideBar from '@/context/use-sidebar'
 
 type Props = {
   domains:
@@ -16,7 +15,6 @@ type Props = {
 }
 
 const SideBar = ({ domains }: Props) => {
-  const { onSignOut } = useSideBar()
   return (
     <div className="bg-gray-50 dark:bg-neutral-950 h-full w-[240px] fixed md:relative hidden md:flex">
       <MaxMenu

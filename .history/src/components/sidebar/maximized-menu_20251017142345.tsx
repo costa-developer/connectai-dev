@@ -51,7 +51,7 @@ const MaxMenu = ({ current, domains, onSignOut }: Props) => {
               current={current}
             />
           ))}
-          <div className='ml-2'>
+          <div>
           <DomainMenu domains={domains} />
           </div>
         </div>

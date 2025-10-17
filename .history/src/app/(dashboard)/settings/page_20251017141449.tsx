@@ -12,6 +12,9 @@ const Page = () => {
         <BillingSettings />
         <AddDomainForm />
         <ChangePassword />
+
+        {/* Add Domain Form */}
+        <AddDomainForm />
       </div>
     </>
   )
