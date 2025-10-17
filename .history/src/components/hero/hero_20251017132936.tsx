@@ -71,22 +71,54 @@ export default function HeroHome() {
           </div>
 
           {/* Video hero section */}
+          <div
+            className="mx-auto max-w-4xl"
+            data-aos="zoom-y-out"
+            data-aos-delay={600}
+          >
+            <div className="relative aspect-video rounded-2xl overflow-hidden shadow-lg">
+                <div
+                  className="absolute inset-0 cursor-pointer"
+                  onClick={() => setIsPlaying(true)}
+                >
+                  <Image
+                    src={poster}
+                    alt="Hero Banner"
+                    fill
+                    className="object-cover brightness-50"
+                    placeholder="blur"
+                    priority
+                  />
+
+                  {/* Play button */}
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="w-20 h-20 bg-white/30 rounded-full flex items-center justify-center hover:bg-white/50 transition">
+                      <svg
+                        className="w-12 h-12 text-white"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                      >
+                        <path d="M6 4l12 6-12 6V4z" />
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+
+              {/* Video iframe */}
+              {isPlaying && (
+                <iframe
+                  className="absolute inset-0 w-full h-full"
+                  src="https://www.youtube.com/embed/VIDEO_ID?autoplay=1&rel=0"
+                  title="AI SaaS Agency Bot"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                ></iframe>
+              )}
+            </div>
+          </div>
         </div>
-
       </div>
-      <div className="mt-10 md:mt-5 flex justify-center">
-        <div className="relative w-full max-w-6xl px-4 md:px-0 rounded-lg border-4  overflow-hidden shadow-2xl">
-          <Image
-            src="/images/app-ui.png"
-            alt="software dashboard"
-            width={1440} 
-            height={800}
-            layout="responsive"
-          />
-        </div>
-      </div>
-
-
     </section>
   );
 }

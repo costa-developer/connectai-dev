@@ -72,21 +72,7 @@ export default function HeroHome() {
 
           {/* Video hero section */}
         </div>
-
       </div>
-      <div className="mt-10 md:mt-5 flex justify-center">
-        <div className="relative w-full max-w-6xl px-4 md:px-0 rounded-lg border-4  overflow-hidden shadow-2xl">
-          <Image
-            src="/images/app-ui.png"
-            alt="software dashboard"
-            width={1440} 
-            height={800}
-            layout="responsive"
-          />
-        </div>
-      </div>
-
-
     </section>
   );
 }

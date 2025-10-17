@@ -71,22 +71,29 @@ export default function HeroHome() {
           </div>
 
           {/* Video hero section */}
+          <div
+            className="mx-auto max-w-4xl"
+            data-aos="zoom-y-out"
+            data-aos-delay={600}
+          >
+            <div className="relative aspect-video rounded-2xl overflow-hidden shadow-lg">
+                <div
+                  className="absolute inset-0 cursor-pointer"
+                  onClick={() => setIsPlaying(true)}
+                >
+                  <Image
+                    src={poster}
+                    alt="Hero Banner"
+                    fill
+                    className="object-cover brightness-50"
+                    placeholder="blur"
+                    priority
+                  />
+                </div>
+            </div>
+          </div>
         </div>
-
       </div>
-      <div className="mt-10 md:mt-5 flex justify-center">
-        <div className="relative w-full max-w-6xl px-4 md:px-0 rounded-lg border-4  overflow-hidden shadow-2xl">
-          <Image
-            src="/images/app-ui.png"
-            alt="software dashboard"
-            width={1440} 
-            height={800}
-            layout="responsive"
-          />
-        </div>
-      </div>
-
-
     </section>
   );
 }
