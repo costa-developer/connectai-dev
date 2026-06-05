@@ -7,8 +7,7 @@ import { TabsContent } from '../ui/tabs'
 import ConversationSearch from './search'
 import { Loader } from '../loader'
 import ChatCard from './chat-card'
-import { CardDescription } from '../ui/card'
-import { Separator } from '../ui/separator'
+import { Inbox } from 'lucide-react'
 
 type Props = {
   domains?:
@@ -21,15 +20,32 @@ type Props = {
 }
 
 const ConversationMenu = ({ domains }: Props) => {
-  const { register, chatRooms, loading, onGetActiveChatMessages } =
-    useConversation()
+  const { register, chatRooms, loading, onGetActiveChatMessages } = useConversation()
+
+  const empty = (
+    <div className="mt-10 flex flex-col items-center gap-2 text-center">
+      <div className="flex h-10 w-10 items-center justify-center rounded-full border border-border bg-background/40">
+        <Inbox className="h-5 w-5 text-muted-foreground" />
+      </div>
+      <p className="text-sm font-medium text-foreground">No chats yet</p>
+      <p className="max-w-[220px] text-xs text-muted-foreground">
+        When customers chat with your AI on any domain, the conversation appears here.
+      </p>
+    </div>
+  )
 
   return (
-    <div className="p-4 flex flex-col h-full bg-slate-800 rounded-l-2xl border-0 border-solid">
+    <aside className="flex w-full max-w-sm flex-col gap-3 p-4">
+      <div>
+        <h1 className="font-display text-lg font-semibold">Conversations</h1>
+        <p className="text-xs text-muted-foreground">Live chats across all your domains.</p>
+      </div>
       <TabsMenu triggers={TABS_MENU}>
         <TabsContent value="unread">
-          <ConversationSearch domains={domains} register={register} />
-          <div className="flex-1 overflow-y-auto mt-2 flex flex-col gap-2">
+          <div className="mt-3">
+            <ConversationSearch domains={domains} register={register} />
+          </div>
+          <div className="mt-3 flex flex-1 flex-col gap-2 overflow-y-auto pr-1">
             <Loader loading={loading}>
               {chatRooms.length ? (
                 chatRooms.map((room) => (
@@ -44,25 +60,28 @@ const ConversationMenu = ({ domains }: Props) => {
                   />
                 ))
               ) : (
-                <CardDescription>No chats for your domain</CardDescription>
+                empty
               )}
             </Loader>
           </div>
         </TabsContent>
         <TabsContent value="all">
-          <Separator orientation="horizontal" className="mt-5" />
-          all
+          <div className="mt-6 text-center text-sm text-muted-foreground">
+            All conversations will appear here.
+          </div>
         </TabsContent>
         <TabsContent value="expired">
-          <Separator orientation="horizontal" className="mt-5" />
-          expired
+          <div className="mt-6 text-center text-sm text-muted-foreground">
+            No expired conversations.
+          </div>
         </TabsContent>
         <TabsContent value="starred">
-          <Separator orientation="horizontal" className="mt-5" />
-          starred
+          <div className="mt-6 text-center text-sm text-muted-foreground">
+            Star a conversation to find it here.
+          </div>
         </TabsContent>
       </TabsMenu>
-    </div>
+    </aside>
   )
 }
 
