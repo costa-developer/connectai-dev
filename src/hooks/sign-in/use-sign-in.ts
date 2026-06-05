@@ -15,13 +15,14 @@ export const useSignInForm = () => {
     resolver: zodResolver(UserLoginSchema),
     mode: 'onChange',
   })
+
   const onHandleSubmit = methods.handleSubmit(
     async (values: UserLoginProps) => {
       if (!isLoaded) return
 
       try {
         setLoading(true)
-          console.log("Form values before sign-in:", values)
+        // Never log credential values, even in dev.
         const authenticated = await signIn.create({
           identifier: values.email,
           password: values.password,
@@ -30,18 +31,22 @@ export const useSignInForm = () => {
         if (authenticated.status === 'complete') {
           await setActive({ session: authenticated.createdSessionId })
           toast({
-            title: 'Success',
-            description: 'Welcome back!',
+            title: 'Welcome back',
+            description: 'You have been signed in.',
           })
           router.push('/dashboard')
         }
       } catch (error: any) {
+        // Generic error message — do not leak whether the email exists.
+        const code = error?.errors?.[0]?.code
+        const description =
+          code === 'form_password_incorrect' ||
+          code === 'form_identifier_not_found'
+            ? 'Email or password is incorrect.'
+            : error?.errors?.[0]?.longMessage || 'Unable to sign in right now.'
+        toast({ title: 'Sign in failed', description })
+      } finally {
         setLoading(false)
-        if (error.errors[0].code === 'form_password_incorrect')
-          toast({
-            title: 'Error',
-            description: 'email/password is incorrect try again',
-          })
       }
     }
   )
