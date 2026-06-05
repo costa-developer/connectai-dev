@@ -32,6 +32,7 @@ export const useSignUpForm = () => {
     if (!isLoaded) return
 
     try {
+      setLoading(true)
       await signUp.create({
         emailAddress: email,
         password: password,
@@ -43,8 +44,12 @@ export const useSignUpForm = () => {
     } catch (error: any) {
       toast({
         title: 'Error',
-        description: error.errors[0].longMessage,
+        description:
+          error?.errors?.[0]?.longMessage ||
+          'We could not send the verification code. Try again.',
       })
+    } finally {
+      setLoading(false)
     }
   }
 
