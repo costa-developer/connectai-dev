@@ -1,4 +1,4 @@
-'use client'  // Mark the component as a Client Component
+'use client'
 
 import React, { useState } from 'react'
 import dynamic from 'next/dynamic'
@@ -19,13 +19,12 @@ const OTPForm = dynamic(() => import('./otp-form'), {
   loading: LoadingSpinner,
 })
 
-type Props = {}
-
-const RegistrationFormStep = (props: Props) => {
+const RegistrationFormStep = () => {
   const {
     register,
     formState: { errors },
     setValue,
+    control,
   } = useFormContext()
   const { currentStep } = useAuthContextHook()
   const [onOTP, setOnOTP] = useState<string>('')
@@ -44,21 +43,13 @@ const RegistrationFormStep = (props: Props) => {
       )
     case 2:
       return (
-        <DetailForm
-          errors={errors}
-          register={register}
-        />
+        <DetailForm errors={errors} register={register} control={control} />
       )
     case 3:
-      return (
-        <OTPForm
-          onOTP={onOTP}
-          setOTP={setOnOTP}
-        />
-      )
+      return <OTPForm onOTP={onOTP} setOTP={setOnOTP} />
   }
 
-  return <div>RegistrationFormStep</div>
+  return null
 }
 
 export default RegistrationFormStep

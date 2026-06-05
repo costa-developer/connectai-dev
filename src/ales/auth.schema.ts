@@ -10,33 +10,63 @@ export type UserRegistrationProps = {
   otp: string
 }
 
+/**
+ * Strong password rules:
+ *  - 8 to 64 characters
+ *  - at least one uppercase letter
+ *  - at least one lowercase letter
+ *  - at least one digit
+ *  - special characters are allowed
+ *  - no leading/trailing whitespace
+ */
+const strongPassword = z
+  .string()
+  .min(8, { message: 'Password must be at least 8 characters' })
+  .max(64, { message: 'Password must be at most 64 characters' })
+  .refine((v) => /[A-Z]/.test(v), {
+    message: 'Add at least one uppercase letter',
+  })
+  .refine((v) => /[a-z]/.test(v), {
+    message: 'Add at least one lowercase letter',
+  })
+  .refine((v) => /[0-9]/.test(v), { message: 'Add at least one number' })
+  .refine((v) => v.trim() === v, {
+    message: 'Password cannot start or end with a space',
+  })
+
 export const UserRegistrationSchema: ZodType<UserRegistrationProps> = z
   .object({
     type: z.string().min(1),
     fullname: z
       .string()
-      .min(4, { message: 'your full name must be atleast 4 characters long' }),
-    email: z.string().email({ message: 'Incorrect email format' }),
-    confirmEmail: z.string().email(),
-    password: z
+      .trim()
+      .min(4, { message: 'Your full name must be at least 4 characters long' })
+      .max(80, { message: 'Your full name is too long' }),
+    email: z
       .string()
-      .min(8, { message: 'Your password must be atleast 8 characters long' })
-      .max(64, {
-        message: 'Your password can not be longer then 64 characters long',
-      })
-      .refine(
-        (value) => /^[a-zA-Z0-9_.-]*$/.test(value ?? ''),
-        'password should contain only alphabets and numbers'
-      ),
+      .trim()
+      .toLowerCase()
+      .email({ message: 'Incorrect email format' })
+      .max(254, { message: 'Email is too long' }),
+    confirmEmail: z
+      .string()
+      .trim()
+      .toLowerCase()
+      .email({ message: 'Incorrect email format' })
+      .max(254),
+    password: strongPassword,
     confirmPassword: z.string(),
-    otp: z.string().min(6, { message: 'You must enter a 6 digit code' }),
+    otp: z
+      .string()
+      .min(6, { message: 'You must enter a 6 digit code' })
+      .max(6, { message: 'You must enter a 6 digit code' }),
   })
   .refine((schema) => schema.password === schema.confirmPassword, {
-    message: 'passwords do not match',
+    message: 'Passwords do not match',
     path: ['confirmPassword'],
   })
   .refine((schema) => schema.email === schema.confirmEmail, {
-    message: 'Your emails not match',
+    message: 'Emails do not match',
     path: ['confirmEmail'],
   })
 
@@ -51,30 +81,24 @@ export type ChangePasswordProps = {
 }
 
 export const UserLoginSchema: ZodType<UserLoginProps> = z.object({
-  email: z.string().email({ message: 'You did not enter a valid email' }),
+  email: z
+    .string()
+    .trim()
+    .toLowerCase()
+    .email({ message: 'You did not enter a valid email' })
+    .max(254),
   password: z
     .string()
-    .min(8, { message: 'Your password must be atleast 8 characters long' })
-    .max(64, {
-      message: 'Your password can not be longer then 64 characters long',
-    }),
+    .min(8, { message: 'Your password must be at least 8 characters long' })
+    .max(64, { message: 'Your password is too long' }),
 })
 
 export const ChangePasswordSchema: ZodType<ChangePasswordProps> = z
   .object({
-    password: z
-      .string()
-      .min(8, { message: 'Your password must be atleast 8 characters long' })
-      .max(64, {
-        message: 'Your password can not be longer then 64 characters long',
-      })
-      .refine(
-        (value) => /^[a-zA-Z0-9_.-]*$/.test(value ?? ''),
-        'password should contain only alphabets and numbers'
-      ),
+    password: strongPassword,
     confirmPassword: z.string(),
   })
   .refine((schema) => schema.password === schema.confirmPassword, {
-    message: 'passwords do not match',
+    message: 'Passwords do not match',
     path: ['confirmPassword'],
   })

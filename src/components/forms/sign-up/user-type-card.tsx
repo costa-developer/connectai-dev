@@ -3,7 +3,7 @@ import { Card, CardContent, CardDescription } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { cn } from '@/lib/utils'
-import { User } from 'lucide-react'
+import { Briefcase, GraduationCap, Check } from 'lucide-react'
 import React from 'react'
 import { FieldValues, UseFormRegister } from 'react-hook-form'
 
@@ -25,54 +25,57 @@ const UserTypeCard = ({
   value,
 }: Props) => {
   const isActive = userType === value
+  const Icon = value === 'owner' ? Briefcase : GraduationCap
 
   return (
-    <Label htmlFor={value}>
+    <Label htmlFor={value} className="block cursor-pointer">
       <Card
         className={cn(
-          'w-full cursor-pointer transition-all duration-300',
-          isActive ? 'shadow-soft-md border-transparent' : 'border-gray-200'
+          'w-full transition-all duration-200',
+          isActive
+            ? 'border-blue-500 ring-2 ring-blue-500/20 shadow-sm bg-blue-50/40'
+            : 'border-slate-200 hover:border-slate-300 hover:bg-slate-50/60'
         )}
       >
-        <CardContent className="flex justify-between p-2">
+        <CardContent className="flex items-center justify-between gap-3 p-4">
           <div className="flex items-center gap-3">
-            <Card
-              className={cn(
-                'flex justify-center items-center p-3 rounded-lg transition-all duration-300',
-                isActive
-                  ? 'bg-gradient-to-tl from-blue-600 to-cyan-400 shadow-soft-md'
-                  : 'border border-gray-200'
-              )}
-            >
-              <User
-                size={10}
-                className={cn(isActive ? 'text-white' : 'text-gray-400')}
-              />
-            </Card>
-            <div className="">
-              <CardDescription className="text-iridium">{title}</CardDescription>
-              <CardDescription className="text-gray-400">{text}</CardDescription>
-            </div>
-          </div>
-          <div>
             <div
               className={cn(
-                'w-4 h-4 rounded-full border-2 flex items-center justify-center',
+                'flex h-11 w-11 items-center justify-center rounded-xl transition-all',
                 isActive
-                  ? 'bg-gradient-to-tl from-blue-600 to-cyan-400 border-transparent'
-                  : 'bg-transparent border-gray-400'
+                  ? 'bg-gradient-to-tl from-blue-600 to-cyan-400 text-white shadow-soft-md'
+                  : 'bg-slate-100 text-slate-500'
               )}
             >
-              <Input
-                {...register('type', {
-                  onChange: (event) => setUserType(event.target.value),
-                })}
-                value={value}
-                id={value}
-                className="hidden"
-                type="radio"
-              />
+              <Icon className="h-5 w-5" />
             </div>
+            <div>
+              <CardDescription className="font-semibold text-slate-800">
+                {title}
+              </CardDescription>
+              <CardDescription className="text-xs text-slate-500">
+                {text}
+              </CardDescription>
+            </div>
+          </div>
+          <div
+            className={cn(
+              'flex h-5 w-5 items-center justify-center rounded-full border-2 transition-all',
+              isActive
+                ? 'border-transparent bg-gradient-to-tl from-blue-600 to-cyan-400'
+                : 'border-slate-300 bg-transparent'
+            )}
+          >
+            {isActive && <Check className="h-3 w-3 text-white" />}
+            <Input
+              {...register('type', {
+                onChange: (event) => setUserType(event.target.value),
+              })}
+              value={value}
+              id={value}
+              className="hidden"
+              type="radio"
+            />
           </div>
         </CardContent>
       </Card>
