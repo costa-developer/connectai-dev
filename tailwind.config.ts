@@ -18,7 +18,14 @@ const config = {
       },
     },
     extend: {
+      fontSize: {
+          '30': ['1.875rem', { lineHeight: '2.25rem' }],
+          '40': ['2.5rem', { lineHeight: '3rem' }], 
+        },
       colors: {
+        dark_grey: '#1e2229',
+        light_grey: '#505050',
+        green: '#99e39e',
         cream: '#F5F5F5',
         gravel: '#4E4E4E',
         iridium: '#3F3F3F',

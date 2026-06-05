@@ -3,23 +3,33 @@ export const metadata = {
   description: "Page description",
 };
 
-import Categories from "@/components/Categories/categories";
-import Cta from "@/components/cta/cta";
-import FeaturesPlanet from "@/components/FeaturesPlanet/featuresplanet";
-import HeroHome from "@/components/hero/hero";
-import LargeTestimonial from "@/components/Testimonials/testimonials";
+import Cta from "@/components/cta/cta";;
 import NavBar from '@/components/navbar'
 import Footer from '@/components/footer/footer'
+import Hero from "@/components/hero";
+import Work from "@/components/work";
+import GlobalReach from "@/components/GlobalReach";
+import TimeLine from "@/components/timeline";
+import Portfolio from "@/components/portfolio";
+import Upgrade from "@/components/upgrade";
+import Perks from "@/components/perks";
+import Faq from "@/components/Faq";
 
 export default function Home() {
   return (
-    <div className="overflow-x-hidden">
+    <div className="overflow-x-hidden bg-[#000510]">
       <NavBar />
-      <HeroHome />
-      <Categories />
-      <FeaturesPlanet />
-      <LargeTestimonial />
+      <Hero />
+      <Work />
+      <GlobalReach />
+      <div className="px-1 bg-white">
+      <Portfolio />
+      <Upgrade />
+      </div>
+      <Perks />
+      <Faq />
       <Cta />
+        <TimeLine />
       <Footer />
     </div>
 
