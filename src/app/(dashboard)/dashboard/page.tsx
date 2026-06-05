@@ -21,12 +21,17 @@ import React from 'react'
 type Props = {}
 
 const Page = async (props: Props) => {
-  const clients = await getUserClients()
-  const sales = await getUserBalance()
-  const bookings = await getUserAppointments()
-  const plan = await getUserPlanInfo()
-  const transactions = await getUserTransactions()
-  const products = await getUserTotalProductPrices()
+  // Run all dashboard queries in parallel instead of sequentially.
+  // This cuts total server time on Vercel from ~sum to ~max of the queries.
+  const [clients, sales, bookings, plan, transactions, products] =
+    await Promise.all([
+      getUserClients(),
+      getUserBalance(),
+      getUserAppointments(),
+      getUserPlanInfo(),
+      getUserTransactions(),
+      getUserTotalProductPrices(),
+    ])
 
   return (
     <>
