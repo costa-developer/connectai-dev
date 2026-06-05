@@ -1,47 +1,64 @@
 import Image from "next/image";
+import { Quote } from "lucide-react";
+
+const testimonials = [
+  {
+    quote:
+      "Connect AI replaced three different tools for us. The inbox alone saves my team five hours a day.",
+    name: "Alex Johnson",
+    role: "Head of Sales, TechCorp",
+    avatar: "/images/avatar-01.jpg",
+  },
+  {
+    quote:
+      "We rolled it out across all eight client sites in an afternoon. Our agency margins are up 22%.",
+    name: "Priya Shah",
+    role: "Founder, Northwind Agency",
+    avatar: "/images/avatar-02.jpg",
+  },
+  {
+    quote:
+      "Best onboarding flow I've seen in a SaaS. The booking integration just works out of the box.",
+    name: "Marcus Lee",
+    role: "Ops Lead, Helio Studio",
+    avatar: "/images/avatar-03.jpg",
+  },
+];
 
 export default function LargeTestimonial() {
   return (
-    <section>
-      <div className="mx-auto max-w-2xl px-4 sm:px-6">
-        <div className="py-12 md:py-20">
-          <div className="space-y-3 text-center">
-            <div className="relative inline-flex">
-              <svg
-                className="absolute -left-6 -top-2 -z-10"
-                width={40}
-                height={49}
-                viewBox="0 0 40 49"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M22.7976 -0.000136375L39.9352 23.4746L33.4178 31.7234L13.7686 11.4275L22.7976 -0.000136375ZM9.34947 17.0206L26.4871 40.4953L19.9697 48.7441L0.320491 28.4482L9.34947 17.0206Z"
-                  fill="#D1D5DB"
+    <section className="relative py-20 md:py-28">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6">
+        <div className="mx-auto max-w-2xl text-center mb-14">
+          <h2 className="font-display text-3xl md:text-4xl font-bold tracking-tight">
+            Loved by teams that <span className="text-gradient">ship fast</span>
+          </h2>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+          {testimonials.map((t) => (
+            <figure
+              key={t.name}
+              className="relative rounded-2xl border border-border bg-card/40 p-6 backdrop-blur"
+            >
+              <Quote className="h-6 w-6 text-primary/50 mb-4" />
+              <blockquote className="text-sm text-foreground/90 leading-relaxed">
+                "{t.quote}"
+              </blockquote>
+              <figcaption className="mt-6 flex items-center gap-3">
+                <Image
+                  src={t.avatar}
+                  alt={t.name}
+                  width={36}
+                  height={36}
+                  className="rounded-full ring-1 ring-primary/30"
                 />
-              </svg>
-              <Image
-                className="rounded-full"
-                src="/images/large-testimonial.jpg"
-                width={48}
-                height={48}
-                alt="Large testimonial"
-              />
-            </div>
-            <p className="text-2xl font-bold text-gray-900">
-              “This AI sales chatbot has completely transformed our workflow. 
-              From <em className="italic text-gray-500">automating lead follow-ups</em> 
-              to <em className="italic text-gray-500">boosting conversions</em>, it’s become our 
-              ultimate sales assistant.”
-            </p>
-            <div className="text-sm font-medium text-gray-500">
-              <span className="text-gray-700">Alex Johnson</span>{" "}
-              <span className="text-gray-400">/</span>{" "}
-              <a className="text-blue-500" href="#0">
-                Head of Sales at TechCorp
-              </a>
-            </div>
-          </div>
+                <div>
+                  <p className="text-sm font-semibold">{t.name}</p>
+                  <p className="text-xs text-muted-foreground">{t.role}</p>
+                </div>
+              </figcaption>
+            </figure>
+          ))}
         </div>
       </div>
     </section>
