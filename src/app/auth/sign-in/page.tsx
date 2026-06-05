@@ -1,39 +1,37 @@
-
 import SignInFormProvider from '@/components/forms/sign-in/form-provider'
 import LoginForm from '@/components/forms/sign-in/login-form'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import React from 'react'
 
+export const metadata = {
+  title: 'Sign in · Connect AI',
+  description: 'Securely sign in to your Connect AI workspace.',
+}
+
 const SignInPage = () => {
   return (
-    <div className="flex-1 py-36 md:px-16 w-full">
-      <div className="flex flex-col h-full gap-3">
-        <SignInFormProvider>
-          <div className="flex flex-col gap-3">
-            <LoginForm />
-            <div className="w-full flex flex-col gap-3 items-center">
-            <Button
-              type="submit"
-              variant="gradient"
-            >
-              Submit
-            </Button>
+    <SignInFormProvider>
+      <div className="space-y-6">
+        <LoginForm />
 
-              <p>
-                Don’t have an account?{' '}
-                <Link
-                  href="/auth/sign-up"
-                  className="font-bold"
-                >
-                  Create one
-                </Link>
-              </p>
-            </div>
-          </div>
-        </SignInFormProvider>
+        <div className="space-y-4">
+          <Button type="submit" variant="gradient" className="!py-3">
+            Sign in
+          </Button>
+
+          <p className="text-center text-sm text-slate-500">
+            Don&apos;t have an account?{' '}
+            <Link
+              href="/auth/sign-up"
+              className="font-semibold text-blue-600 hover:text-blue-700"
+            >
+              Create one
+            </Link>
+          </p>
+        </div>
       </div>
-    </div>
+    </SignInFormProvider>
   )
 }
 
