@@ -6,10 +6,6 @@ img {
   max-width: none;
 }
 
-body {
-  background: transparent;
-}
-
 .chat-window::-webkit-scrollbar {
   display: none;
 }
@@ -21,65 +17,58 @@ body {
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Midnight Indigo palette */
+    --background: 240 50% 6%;             /* #0a0a1a */
+    --foreground: 220 25% 96%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 234 38% 14%;                  /* #141432 */
+    --card-foreground: 220 25% 96%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 234 38% 14%;
+    --popover-foreground: 220 25% 96%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 244 76% 60%;               /* #4f46e5 indigo */
+    --primary-foreground: 220 25% 98%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 240 52% 24%;             /* #1e1e5a */
+    --secondary-foreground: 220 25% 96%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 234 30% 18%;
+    --muted-foreground: 220 14% 70%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 244 76% 60%;
+    --accent-foreground: 220 25% 98%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 72% 55%;
+    --destructive-foreground: 220 25% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 234 25% 22%;
+    --input: 234 25% 22%;
+    --ring: 244 76% 60%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
+    --background: 240 50% 6%;
+    --foreground: 220 25% 96%;
+    --card: 234 38% 14%;
+    --card-foreground: 220 25% 96%;
+    --popover: 234 38% 14%;
+    --popover-foreground: 220 25% 96%;
+    --primary: 244 76% 60%;
+    --primary-foreground: 220 25% 98%;
+    --secondary: 240 52% 24%;
+    --secondary-foreground: 220 25% 96%;
+    --muted: 234 30% 18%;
+    --muted-foreground: 220 14% 70%;
+    --accent: 244 76% 60%;
+    --accent-foreground: 220 25% 98%;
+    --destructive: 0 72% 55%;
+    --destructive-foreground: 220 25% 98%;
+    --border: 234 25% 22%;
+    --input: 234 25% 22%;
+    --ring: 244 76% 60%;
   }
 }
 
@@ -87,18 +76,27 @@ body {
   * {
     @apply border-border;
   }
-  body {
+  html, body {
     @apply bg-background text-foreground;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display), ui-sans-serif, system-ui;
+    letter-spacing: -0.02em;
   }
 }
 
+/* Decorative background glow used across landing sections */
+.midnight-glow {
+  background:
+    radial-gradient(60% 50% at 50% 0%, hsl(244 76% 60% / 0.25), transparent 60%),
+    radial-gradient(40% 30% at 80% 20%, hsl(200 90% 60% / 0.15), transparent 60%),
+    radial-gradient(40% 30% at 20% 80%, hsl(280 90% 60% / 0.15), transparent 60%);
+}
+
 .chat-bubble {
-  background-color: #f1f1f1;
+  background-color: hsl(var(--muted));
+  color: hsl(var(--foreground));
   padding: 16px 28px;
-  -webkit-border-t-radius: 10px;
-  -webkit-border-bottom-left-radius: 2px;
-  -moz-border-t-radius: 10px;
-  -moz-border-radius-bottomleft: 2px;
   border-radius: 10px;
   border-bottom-left-radius: 2px;
   display: inline-block;
@@ -110,7 +108,7 @@ body {
 }
 .typing .dot {
   animation: mercuryTypingAnimation 1.8s infinite ease-in-out;
-  background-color: #3d30ee;
+  background-color: hsl(var(--primary));
   border-radius: 50%;
   height: 7px;
   margin-right: 4px;
@@ -118,39 +116,15 @@ body {
   width: 7px;
   display: inline-block;
 }
-.typing .dot:nth-child(1) {
-  animation-delay: 200ms;
-}
-.typing .dot:nth-child(2) {
-  animation-delay: 300ms;
-}
-.typing .dot:nth-child(3) {
-  animation-delay: 400ms;
-}
-.typing .dot:last-child {
-  margin-right: 0;
-}
+.typing .dot:nth-child(1) { animation-delay: 200ms; }
+.typing .dot:nth-child(2) { animation-delay: 300ms; }
+.typing .dot:nth-child(3) { animation-delay: 400ms; }
+.typing .dot:last-child  { margin-right: 0; }
 
 @keyframes mercuryTypingAnimation {
-  0% {
-    transform: translateY(0px);
-    background-color: #5313e8;
-  }
-  28% {
-    transform: translateY(-7px);
-    background-color: #3305ed;
-  }
-  44% {
-    transform: translateY(0px);
-    background-color: #f1f1f1;
-  }
-}
-
-.my-config {
-  --darkmode: 0;
-  --h-accent: 30;
-  --s-accent: 100%;
-  --l-accent: 50%;
+  0%   { transform: translateY(0px);  background-color: hsl(var(--primary)); }
+  28%  { transform: translateY(-7px); background-color: hsl(var(--primary)); }
+  44%  { transform: translateY(0px);  background-color: hsl(var(--muted)); }
 }
 
 .parsed-container img {
@@ -158,15 +132,15 @@ body {
   border-radius: 20px;
 }
 
-
 @layer utilities {
-  .bg-linear-to-r {
-    background-image: linear-gradient(to right, var(--tw-gradient-stops));
+  .bg-linear-to-r { background-image: linear-gradient(to right, var(--tw-gradient-stops)); }
+  .bg-linear-to-t { background-image: linear-gradient(to top, var(--tw-gradient-stops)); }
+  .bg-linear-to-b { background-image: linear-gradient(to bottom, var(--tw-gradient-stops)); }
+  .text-gradient {
+    background: linear-gradient(135deg, hsl(244 76% 70%), hsl(200 90% 70%));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
   }
-  .bg-linear-to-t {
-    background-image: linear-gradient(to top, var(--tw-gradient-stops));
-  }
-  .bg-linear-to-b {
-    background-image: linear-gradient(to bottom, var(--tw-gradient-stops));
-  }
+  .font-display { font-family: var(--font-display), ui-sans-serif, system-ui; }
 }
