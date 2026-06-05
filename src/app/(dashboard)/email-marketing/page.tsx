@@ -10,8 +10,11 @@ const Page = async (props: Props) => {
   const user = await currentUser()
 
   if (!user) return null
-  const customers = await onGetAllCustomers(user.id)
-  const campaigns = await onGetAllCampaigns(user.id)
+  // Fetch customers + campaigns in parallel.
+  const [customers, campaigns] = await Promise.all([
+    onGetAllCustomers(user.id),
+    onGetAllCampaigns(user.id),
+  ])
 
   return (
     <>
