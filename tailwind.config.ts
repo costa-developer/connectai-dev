@@ -18,7 +18,18 @@ const config = {
       },
     },
     extend: {
+      fontFamily: {
+        display: ['var(--font-display)', 'ui-sans-serif', 'system-ui'],
+        sans: ['var(--font-body)', 'ui-sans-serif', 'system-ui'],
+      },
       colors: {
+        midnight: {
+          DEFAULT: '#0a0a1a',
+          900: '#0a0a1a',
+          800: '#141432',
+          700: '#1e1e5a',
+          500: '#4f46e5',
+        },
         cream: '#F5F5F5',
         gravel: '#4E4E4E',
         iridium: '#3F3F3F',

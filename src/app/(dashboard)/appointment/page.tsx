@@ -1,99 +1,110 @@
 import { onGetAllBookingsForCurrentUser } from '@/actions/appointment'
 import AllAppointments from '@/components/appointment/all-appointments'
 import InfoBar from '@/components/infobar'
-import Section from '@/components/section-label'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Separator } from '@/components/ui/separator'
 import { currentUser } from '@clerk/nextjs'
 import React from 'react'
 import { format } from 'date-fns'
+import { CalendarClock, Clock, Inbox } from 'lucide-react'
 
 type Props = {}
 
 const Page = async (props: Props) => {
   const user = await currentUser()
-
   if (!user) return null
+
   const domainBookings = await onGetAllBookingsForCurrentUser(user.id)
   const today = new Date()
 
-  if (!domainBookings) {
-    return (
-      <div className="flex flex-col h-screen p-6">
-        <InfoBar />
-        <Card className="flex-1 flex items-center justify-center m-4">
-          <p className="text-xl text-gray-500">No Appointments Available</p>
-        </Card>
-      </div>
-    )
-  }
-
-  const bookingsExistToday = domainBookings.bookings.filter(
-    (booking) => booking.date.toDateString() === today.toDateString() 
+  const bookings: any[] = domainBookings?.bookings ?? []
+  const bookingsExistToday = bookings.filter(
+    (booking: any) => booking.date.toDateString() === today.toDateString()
   )
+  const upcoming = bookings.filter((b: any) => b.date >= today).length
+  const totalAll = bookings.length
 
   return (
     <>
       <InfoBar />
-      <header className="px-6 py-4 border-b border-gray-100">
-        <h1 className="text-3xl font-bold text-gray-800">Appointment Dashboard</h1>
-        <p className="text-sm text-gray-500">Manage all your customer bookings and appointments.</p>
-      </header>
-      <div className="grid grid-cols-1 lg:grid-cols-4 flex-1 h-full bg-white">
-        <div className="lg:col-span-1 flex-shrink-0 bg-slate-800 border-slate-700 shadow-xl">
-          <div className="h-full">
-            <CardHeader className="p-4 border-b">
-              <CardTitle className="text-lg font-semibold text-white">Today&apos;s Focus</CardTitle>
-              <p className="text-sm text-gray-300">
-                {bookingsExistToday.length} appointment{bookingsExistToday.length !== 1 ? 's' : ''} today.
-              </p>
-            </CardHeader>
 
-            <CardContent className="p-4 space-y-4 max-h-[80vh] overflow-y-auto">
-              {bookingsExistToday.length ? (
-                bookingsExistToday.map((booking) => (
-                  <div
-                    key={booking.id}
-                    className="p-3 border rounded-xl hover:shadow-md transition-shadow duration-200"
-                  >
-                    <div className="flex justify-between items-start mb-2">
-                      <div className="text-sm font-bold text-primary bg-primary/10 px-3 py-1 rounded-full">
-                        {booking.slot}
-                      </div>
-                      <Avatar className="h-8 w-8">
-                        <AvatarFallback className="text-xs bg-gray-200">
-                          {booking.email[0].toUpperCase()}
-                        </AvatarFallback>
-                      </Avatar>
-                    </div>
-                    <p className="text-sm font-medium truncate">{booking.email}</p>
-                    <p className="text-xs text-gray-500 truncate">
-                      Domain: <span className="font-semibold">{booking.Customer?.Domain?.name || 'N/A'}</span>
-                    </p>
-
-                    <Separator orientation="horizontal" className="my-2" />
-                    <div className="flex justify-between text-xs text-gray-500">
-                      <span>Booked:</span>
-                      <span>
-                        {format(booking.createdAt, 'MMM d, h:mm a')}
-                      </span>
-                    </div>
-                  </div>
-                ))
-              ) : (
-                <div className="text-center py-6">
-                  <p className="text-gray-500">No appointments scheduled for today.</p>
-                </div>
-              )}
-            </CardContent>
+      <header className="rounded-2xl border border-border bg-card/40 px-6 py-5 backdrop-blur">
+        <div className="flex flex-wrap items-center justify-between gap-4">
+          <div>
+            <h1 className="font-display text-2xl font-bold tracking-tight">Appointments</h1>
+            <p className="text-sm text-muted-foreground">
+              Manage every booking your AI assistant captures, in one place.
+            </p>
+          </div>
+          <div className="grid grid-cols-3 gap-3">
+            <Stat icon={<CalendarClock className="h-4 w-4" />} label="Today" value={bookingsExistToday.length} />
+            <Stat icon={<Clock className="h-4 w-4" />} label="Upcoming" value={upcoming} />
+            <Stat icon={<Inbox className="h-4 w-4" />} label="All time" value={totalAll} />
           </div>
         </div>
-        <div className="lg:col-span-3 overflow-y-auto h-full">
-          <AllAppointments bookings={domainBookings?.bookings} />
-        </div>
+      </header>
+
+      <div className="grid flex-1 grid-cols-1 gap-3 overflow-hidden lg:grid-cols-[320px_1fr]">
+        {/* Today's focus */}
+        <aside className="flex flex-col overflow-hidden rounded-2xl border border-border bg-card/40 backdrop-blur">
+          <div className="border-b border-border px-5 py-4">
+            <h2 className="font-display text-base font-semibold">Today's focus</h2>
+            <p className="mt-0.5 text-xs text-muted-foreground">
+              {bookingsExistToday.length} appointment{bookingsExistToday.length !== 1 ? 's' : ''} scheduled
+            </p>
+          </div>
+          <div className="flex-1 space-y-2 overflow-y-auto p-4">
+            {bookingsExistToday.length ? (
+              bookingsExistToday.map((booking: any) => (
+                <div
+                  key={booking.id}
+                  className="rounded-xl border border-border bg-background/40 p-3 transition hover:border-primary/40 hover:bg-background/60"
+                >
+                  <div className="mb-2 flex items-center justify-between">
+                    <span className="rounded-full bg-primary/15 px-2.5 py-0.5 text-xs font-semibold text-primary">
+                      {booking.slot}
+                    </span>
+                    <Avatar className="h-7 w-7">
+                      <AvatarFallback className="bg-muted text-[10px]">
+                        {booking.email[0]?.toUpperCase()}
+                      </AvatarFallback>
+                    </Avatar>
+                  </div>
+                  <p className="truncate text-sm font-medium text-foreground">{booking.email}</p>
+                  <p className="truncate text-xs text-muted-foreground">
+                    {booking.Customer?.Domain?.name || 'Unassigned domain'}
+                  </p>
+                  <div className="mt-2 flex justify-between border-t border-border/60 pt-2 text-[11px] text-muted-foreground">
+                    <span>Booked</span>
+                    <span>{format(booking.createdAt, 'MMM d, h:mm a')}</span>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <div className="rounded-xl border border-dashed border-border p-6 text-center text-sm text-muted-foreground">
+                Nothing on the calendar for today. Time for a coffee.
+              </div>
+            )}
+          </div>
+        </aside>
+
+        {/* All appointments */}
+        <section className="overflow-hidden rounded-2xl border border-border bg-card/40 backdrop-blur">
+          <AllAppointments bookings={bookings} />
+        </section>
       </div>
     </>
+  )
+}
+
+function Stat({ icon, label, value }: { icon: React.ReactNode; label: string; value: number }) {
+  return (
+    <div className="rounded-xl border border-border bg-background/40 px-3 py-2">
+      <div className="flex items-center gap-1.5 text-[10px] uppercase tracking-wider text-muted-foreground">
+        {icon}
+        {label}
+      </div>
+      <div className="font-display text-xl font-bold">{value}</div>
+    </div>
   )
 }
 

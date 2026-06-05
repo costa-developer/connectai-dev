@@ -35,41 +35,32 @@ export const onIntegrateDomain = async (domain: string, icon: string) => {
     })
 
     if (!domainExists) {
-      if (
-        (subscription?.subscription?.plan == 'STANDARD' &&
-          subscription._count.domains < 1) ||
-        (subscription?.subscription?.plan == 'PRO' &&
-          subscription._count.domains < 5) ||
-        (subscription?.subscription?.plan == 'ULTIMATE' &&
-          subscription._count.domains < 10)
-      ) {
-        const newDomain = await client.user.update({
-          where: {
-            clerkId: user.id,
-          },
-          data: {
-            domains: {
-              create: {
-                name: domain,
-                icon,
-                chatBot: {
-                  create: {
-                    welcomeMessage: 'Hey there, have  a question? Text us here',
-                  },
+      // All plans currently include unlimited domains.
+      const newDomain = await client.user.update({
+        where: {
+          clerkId: user.id,
+        },
+        data: {
+          domains: {
+            create: {
+              name: domain,
+              icon,
+              chatBot: {
+                create: {
+                  welcomeMessage: 'Hey there, have a question? Text us here',
                 },
               },
             },
           },
-        })
+        },
+      })
 
-        if (newDomain) {
-          return { status: 200, message: 'Domain successfully added' }
-        }
+      if (newDomain) {
+        return { status: 200, message: 'Domain successfully added' }
       }
       return {
         status: 400,
-        message:
-          "You've reached the maximum number of domains, upgrade your plan",
+        message: 'Could not add domain, please try again',
       }
     }
     return {

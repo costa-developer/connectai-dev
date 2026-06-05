@@ -2,7 +2,6 @@ import { onGetAllAccountDomains } from '@/actions/settings'
 import ConversationMenu from '@/components/conversations'
 import Messenger from '@/components/conversations/messenger'
 import InfoBar from '@/components/infobar'
-import { Separator } from '@/components/ui/separator'
 import React from 'react'
 
 type Props = {}
@@ -11,17 +10,14 @@ const ConversationPage = async (props: Props) => {
   const domains = await onGetAllAccountDomains()
   return (
     <>
-    <InfoBar />
-    <div className="w-full h-full flex rounded-2xl border-0 border-solid bg-white mt-8">
-      <ConversationMenu domains={domains?.domains} />
-
-      <Separator orientation="vertical" />
-      <div className="w-full flex flex-col">
-        <div className="px-5">
+      <InfoBar />
+      <div className="flex flex-1 w-full overflow-hidden rounded-2xl border border-border bg-card/40 backdrop-blur">
+        <ConversationMenu domains={domains?.domains} />
+        <div className="hidden md:block w-px bg-border/60" />
+        <div className="flex flex-1 flex-col">
+          <Messenger />
         </div>
-        <Messenger />
       </div>
-    </div>
     </>
   )
 }

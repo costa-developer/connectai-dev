@@ -1,92 +1,95 @@
 "use client";
 
 import Image from "next/image";
-import PageIllustration from "../pageillustration/page-llustration";
-import { useState } from "react";
-import poster from "/public/images/big_banner.jpg";
+import Link from "next/link";
+import { ArrowRight, Sparkles } from "lucide-react";
+
+const avatars = [1, 2, 3, 4, 5, 6];
 
 export default function HeroHome() {
-  const [isPlaying, setIsPlaying] = useState(false);
-
   return (
-    <section className="relative">
-      <PageIllustration />
+    <section className="relative overflow-hidden pt-32 pb-20 md:pt-40 md:pb-28">
+      {/* Background glow */}
+      <div className="absolute inset-0 -z-10 midnight-glow opacity-90" aria-hidden />
+      <div
+        className="absolute inset-x-0 top-0 -z-10 h-[1px] bg-gradient-to-r from-transparent via-primary/40 to-transparent"
+        aria-hidden
+      />
+      {/* Subtle grid */}
+      <div
+        className="absolute inset-0 -z-10 opacity-[0.07] [background-image:linear-gradient(to_right,white_1px,transparent_1px),linear-gradient(to_bottom,white_1px,transparent_1px)] [background-size:48px_48px]"
+        aria-hidden
+      />
 
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        {/* Hero content */}
-        <div className="pt-24 md:pt-32 pb-12 md:pb-20 text-center">
-          {/* Section header */}
-          <div className="pb-12 md:pb-16">
-            {/* Avatar images */}
-            <div
-              className="mb-6 flex justify-center -space-x-3"
-              data-aos="zoom-y-out"
-            >
-              {Array.from({ length: 6 }, (_, i) => (
-                <Image
-                  key={i}
-                  className="box-content rounded-full border-2 border-gray-50"
-                  src={`/images/avatar-0${i + 1}.jpg`}
-                  width={32}
-                  height={32}
-                  alt={`Avatar ${i + 1}`}
-                  priority
-                />
-              ))}
-            </div>
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 text-center">
+        {/* Eyebrow pill */}
+        <div className="mx-auto mb-8 inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-1.5 text-xs font-medium text-primary-foreground/90 backdrop-blur">
+          <Sparkles className="h-3.5 w-3.5 text-primary" />
+          <span>New — Conversation analytics powered by AI</span>
+        </div>
 
-            {/* Main Heading */}
-            <h1
-              className="mb-6 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight"
-              data-aos="zoom-y-out"
-              data-aos-delay={150}
-            >
-              An AI powered sales assistant <br className="hidden lg:inline-block" />
-              chatbot
-            </h1>
+        {/* Avatars */}
+        <div className="mb-8 flex justify-center -space-x-3">
+          {avatars.map((i) => (
+            <Image
+              key={i}
+              className="box-content rounded-full border-2 border-card ring-1 ring-primary/30"
+              src={`/images/avatar-0${i}.jpg`}
+              width={36}
+              height={36}
+              alt={`Avatar ${i}`}
+              priority
+            />
+          ))}
+        </div>
 
-            {/* Subtitle */}
-            <p
-              className="mx-auto max-w-2xl text-base sm:text-lg md:text-xl text-gray-700 mb-8"
-              data-aos="zoom-y-out"
-              data-aos-delay={300}
-            >
-              Our straightforward pricing plans are tailored to meet your needs. 
-              If not ready to commit, you can get started for free.
-            </p>
+        <h1 className="font-display text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.05] text-foreground">
+          The AI sales assistant
+          <br />
+          that <span className="text-gradient">never sleeps.</span>
+        </h1>
 
-            {/* Call-to-action button */}
-            <div
-              className="flex justify-center"
-              data-aos="zoom-y-out"
-              data-aos-delay={450}
-            >
-              <a
-                className="inline-block px-6 py-3 font-bold text-white uppercase text-sm sm:text-base rounded-lg bg-gradient-to-tl from-blue-600 to-cyan-400 shadow-md hover:scale-105 transition transform"
-                href="#0"
-              >
-                Start Free Trial &rarr;
-              </a>
-            </div>
+        <p className="mx-auto mt-6 max-w-2xl text-base md:text-lg text-muted-foreground">
+          Connect AI captures leads, qualifies prospects, books meetings, and follows up with
+          customers automatically — on every domain you own.
+        </p>
+
+        <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-3">
+          <Link
+            href="/auth/sign-up"
+            className="group inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3.5 text-sm font-semibold text-primary-foreground shadow-[0_10px_40px_-10px_hsl(var(--primary)/0.6)] hover:bg-primary/90 transition"
+          >
+            Start free
+            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+          </Link>
+          <Link
+            href="#features"
+            className="inline-flex items-center gap-2 rounded-full border border-border bg-card/40 px-7 py-3.5 text-sm font-semibold text-foreground hover:bg-card transition"
+          >
+            See how it works
+          </Link>
+        </div>
+
+        <p className="mt-5 text-xs text-muted-foreground">
+          Free during early access · No credit card required
+        </p>
+      </div>
+
+      {/* Dashboard preview */}
+      <div className="mt-20 flex justify-center px-4">
+        <div className="relative w-full max-w-6xl">
+          <div className="absolute -inset-1 -z-10 rounded-2xl bg-gradient-to-r from-primary/40 via-fuchsia-500/20 to-cyan-400/40 blur-2xl opacity-60" />
+          <div className="relative rounded-2xl border border-border bg-card/60 p-2 backdrop-blur shadow-2xl">
+            <Image
+              src="/images/app-ui.png"
+              alt="Connect AI dashboard"
+              width={1440}
+              height={800}
+              className="rounded-xl w-full h-auto"
+            />
           </div>
-
-          {/* Video hero section */}
-        </div>
-
-      </div>
-      <div className="mt-10 md:mt-5 flex justify-center">
-        <div className="relative w-full max-w-6xl px-4 md:px-0 rounded-lg border-4  overflow-hidden shadow-2xl">
-          <Image
-            src="/images/app-ui.png"
-            alt="software dashboard"
-            width={1440} 
-            height={800}
-            layout="responsive"
-          />
         </div>
       </div>
-
-
     </section>
   );
 }

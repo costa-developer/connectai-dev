@@ -12,60 +12,48 @@ type Props = {
 }
 
 const MenuItem = ({ size, path, icon, label, current, onSignOut }: Props) => {
-  const isActive = current && path && current === path
-  const baseIconClasses =
-    'mr-2 flex h-8 w-8 items-center justify-center rounded-lg shadow-soft-2xl xl:p-2.5'
+  const isActive = !!(current && path && current === path)
 
-  const iconBackgroundAndColor = isActive
-    ? 
-      'bg-gradient-to-tl from-blue-600 to-cyan-400 text-white'
-    : 
-      'bg-white text-gray-700'
-
-  const IconCard = (
-    <div className={cn(baseIconClasses, iconBackgroundAndColor)}>
-      {icon}
-    </div>
-  )
-
-  switch (size) {
-    case 'max':
-      return (
-        <Link
-          onClick={onSignOut}
-          className={cn(
-            'flex items-center gap-2 px-1 py-2 rounded-lg my-1 text-sm opacity-100  ease-soft',
-            !current
-              ? 'text-gray-500'
-              : isActive 
-              ? 'bg-white font-bold text-black'
-              : 'text-gray-500'
-          )}
-          href={path ? `/${path}` : '#'}
-        >
-          {IconCard} {label}
-        </Link>
-      )
-    case 'min':
-      return (
-        <Link
-          onClick={onSignOut}
-          className={cn(
-            !current
-              ? 'text-gray-500'
-              : isActive 
-              ? 'bg-white font-bold text-black'
-              : 'text-gray-500',
-            'rounded-lg py-2 my-1 flex items-center justify-center'
-          )}
-          href={path ? `/${path}` : '#'}
-        >
-          {IconCard}
-        </Link>
-      )
-    default:
-      return null
+  if (size === 'min') {
+    return (
+      <Link
+        onClick={onSignOut}
+        href={path ? `/${path}` : '#'}
+        className={cn(
+          'flex h-9 w-9 items-center justify-center rounded-lg transition',
+          isActive
+            ? 'bg-primary text-primary-foreground'
+            : 'text-muted-foreground hover:bg-muted/40 hover:text-foreground'
+        )}
+        title={label}
+      >
+        {icon}
+      </Link>
+    )
   }
+
+  return (
+    <Link
+      onClick={onSignOut}
+      href={path ? `/${path}` : '#'}
+      className={cn(
+        'flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition',
+        isActive
+          ? 'bg-primary/15 text-foreground ring-1 ring-primary/40'
+          : 'text-muted-foreground hover:bg-muted/40 hover:text-foreground'
+      )}
+    >
+      <span
+        className={cn(
+          'flex h-7 w-7 items-center justify-center rounded-md transition',
+          isActive ? 'bg-primary text-primary-foreground' : 'bg-background/50 text-muted-foreground'
+        )}
+      >
+        {icon}
+      </span>
+      <span className="truncate">{label}</span>
+    </Link>
+  )
 }
 
 export default MenuItem
