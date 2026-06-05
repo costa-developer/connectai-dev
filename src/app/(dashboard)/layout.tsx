@@ -73,9 +73,9 @@ const OwnerLayout = ({ children }: Props) => {
 
   return (
     <ChatProvider>
-      <div className="flex h-screen w-full">
+      <div className="flex h-screen w-full bg-background text-foreground">
         <SideBar domains={domains} />
-        <div className="w-full h-screen flex flex-col pl-20 md:p-8 bg-gray-50">
+        <div className="flex w-full h-screen flex-col gap-3 px-3 py-3 md:px-6 md:py-5 overflow-hidden">
           {children}
         </div>
       </div>
@@ -84,3 +84,4 @@ const OwnerLayout = ({ children }: Props) => {
 }
 
 export default OwnerLayout
+

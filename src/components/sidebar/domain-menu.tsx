@@ -19,40 +19,38 @@ type Props = {
 }
 
 const DomainMenu = ({ domains, min }: Props) => {
-  return (
-    <div className={cn('flex flex-col gap-3', min ? 'mt-6' : 'mt-3')}>
-      {!min && (
-        <div className="flex items-center gap-2 text-xs font-semibold text-gray-700">
-          <div className="flex items-center justify-center w-6 h-6 bg-gradient-to-tl from-blue-600 to-cyan-400 rounded-sm">
-            <Globe className="w-3 h-3 text-white" />
-          </div>
-          <span>DOMAINS</span>
-        </div>
-      )}
+  if (!domains || domains.length === 0) return null
 
-      {/* List of domains */}
-      <div className="flex flex-col gap-1 text-ironside font-medium">
-        {domains &&
-          domains.map((domain) => (
-            <Link
-              href={`/settings/${domain.name.split('.')[0]}`}
-              key={domain.id}
-              className={cn(
-                'flex gap-3 hover:bg-white rounded-full transition duration-100 ease-in-out cursor-pointer ',
-                !min ? 'p-2' : 'py-2'
-              )}
-            >
+  return (
+    <ul className={cn('flex flex-col gap-1', min && 'items-center')}>
+      {domains.map((domain) => (
+        <li key={domain.id}>
+          <Link
+            href={`/settings/${domain.name.split('.')[0]}`}
+            className={cn(
+              'flex items-center gap-2 rounded-md px-2 py-1.5 text-xs text-muted-foreground hover:bg-muted/40 hover:text-foreground transition',
+              min && 'justify-center px-0'
+            )}
+            title={domain.name}
+          >
+            {domain.icon ? (
               <Image
                 src={`https://ucarecdn.com/${domain.icon}/`}
-                alt="logo"
-                width={20}
-                height={20}
+                alt={domain.name}
+                width={18}
+                height={18}
+                className="rounded"
               />
-              {!min && <p className="text-sm">{domain.name}</p>}
-            </Link>
-          ))}
-      </div>
-    </div>
+            ) : (
+              <span className="flex h-[18px] w-[18px] items-center justify-center rounded bg-primary/20 text-primary">
+                <Globe className="h-3 w-3" />
+              </span>
+            )}
+            {!min && <span className="truncate">{domain.name}</span>}
+          </Link>
+        </li>
+      ))}
+    </ul>
   )
 }
 
