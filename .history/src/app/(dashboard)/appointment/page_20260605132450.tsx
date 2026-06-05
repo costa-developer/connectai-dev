@@ -47,7 +47,7 @@ const Page = async (props: Props) => {
         {/* Today's focus */}
         <aside className="flex flex-col overflow-hidden rounded-2xl border border-border bg-card/40 backdrop-blur">
           <div className="border-b border-border px-5 py-4">
-            <h2 className="font-display text-base font-semibold">Today&apos;s focus</h2>
+            <h2 className="font-display text-base font-semibold">Today's focus</h2>
             <p className="mt-0.5 text-xs text-muted-foreground">
               {bookingsExistToday.length} appointment{bookingsExistToday.length !== 1 ? 's' : ''} scheduled
             </p>
